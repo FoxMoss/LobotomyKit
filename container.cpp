@@ -1,5 +1,6 @@
 #include "container.h"
 #include "font.h"
+#include <iostream>
 #include <litehtml/litehtml.h>
 #include <raylib.h>
 
@@ -66,25 +67,25 @@ void Container::draw_borders(litehtml::uint_ptr hdc,
                              const litehtml::position &pos, bool /*root*/) {
   // auto bmp = (Bitmap *)hdc;
   //
-  // // left border
-  // for (int x = 0; x < borders.left.width; x++)
-  //   bmp->draw_line(pos.left() + x, pos.top(), pos.left() + x, pos.bottom(),
-  //                  borders.left.color);
-  //
-  // // right border
-  // for (int x = 0; x < borders.right.width; x++)
-  //   bmp->draw_line(pos.right() - x - 1, pos.top(), pos.right() - x - 1,
-  //                  pos.bottom(), borders.right.color);
-  //
-  // // top border
-  // for (int y = 0; y < borders.top.width; y++)
-  //   bmp->draw_line(pos.left(), pos.top() + y, pos.right(), pos.top() + y,
-  //                  borders.top.color);
-  //
-  // // bottom border
-  // for (int y = 0; y < borders.bottom.width; y++)
-  //   bmp->draw_line(pos.left(), pos.bottom() - y - 1, pos.right(),
-  //                  pos.bottom() - y - 1, borders.bottom.color);
+  // left border
+  for (int x = 0; x < borders.left.width; x++)
+    DrawLine(pos.left() + x, pos.top(), pos.left() + x, pos.bottom(),
+             TO_RAYLIB(borders.left.color));
+
+  // right border
+  for (int x = 0; x < borders.right.width; x++)
+    DrawLine(pos.right() - x - 1, pos.top(), pos.right() - x - 1, pos.bottom(),
+             TO_RAYLIB(borders.right.color));
+
+  // top border
+  for (int y = 0; y < borders.top.width; y++)
+    DrawLine(pos.left(), pos.top() + y, pos.right(), pos.top() + y,
+             TO_RAYLIB(borders.top.color));
+
+  // bottom border
+  for (int y = 0; y < borders.bottom.width; y++)
+    DrawLine(pos.left(), pos.bottom() - y - 1, pos.right(),
+             pos.bottom() - y - 1, TO_RAYLIB(borders.bottom.color));
 }
 
 void Container::draw_list_marker(litehtml::uint_ptr hdc,
@@ -97,6 +98,7 @@ void Container::draw_list_marker(litehtml::uint_ptr hdc,
 
 void Container::import_css(litehtml::string &text, const litehtml::string &url,
                            litehtml::string &baseurl) {
+  std::cout << "import_css here\n";
   baseurl = basedir + "/" + url;
   text = readfile(baseurl);
 }
