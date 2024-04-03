@@ -1,0 +1,99 @@
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Lobotomy Kit</title>
+  <style>
+    .emscripten {
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .spinner {
+      height: 50px;
+      width: 50px;
+      margin: 0px auto;
+      -webkit-animation: rotation .8s linear infinite;
+      -moz-animation: rotation .8s linear infinite;
+      -o-animation: rotation .8s linear infinite;
+      animation: rotation 0.8s linear infinite;
+      border-left: 10px solid rgb(0, 150, 240);
+      border-right: 10px solid rgb(0, 150, 240);
+      border-bottom: 10px solid rgb(0, 150, 240);
+      border-top: 10px solid rgb(100, 0, 200);
+      border-radius: 100%;
+    }
+
+    @-webkit-keyframes rotation {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes rotation {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
+
+    @-o-keyframes rotation {
+      from {
+        -o-transform: rotate(0deg);
+      }
+
+      to {
+        -o-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="emscripten_border">
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+  </div>
+  <script type='text/javascript'>
+    let LoadHtml;
+    var Module = {
+      print: (function () {
+        return (...args) => {
+          var text = args.join(' ');
+          console.log(text);
+        };
+      })(),
+      canvas: (function () {
+        var canvas = document.getElementById('canvas');
+        return canvas;
+      })(),
+      onRuntimeInitialized: (function () {
+        LoadHtml = Module.cwrap('loadHtml', 'number', ['string']);
+        Module.cwrap('start', 'number', [])();
+      })
+    };
+
+  </script>
+  <script async type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
